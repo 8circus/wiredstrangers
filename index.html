@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wired Strangers</title>
+<meta name="description" content="Wired Strangers - stadium rock from Gent">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzBhMDYwMyIvPjxwYXRoIGQ9Ik00IDIyIFExNiA4IDI4IDIyIiBmaWxsPSJub25lIiBzdHJva2U9IiNkMDVhMDgiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNNyAyMiBRMTYgMTEgMjUgMjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2U4OTAwYSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgb3BhY2l0eT0iMC43Ii8+PHJlY3QgeD0iMyIgeT0iMjIiIHdpZHRoPSIyNiIgaGVpZ2h0PSIyLjUiIHJ4PSIxIiBmaWxsPSIjZDA1YTA4Ii8+PHJlY3QgeD0iNiIgeT0iMjUiIHdpZHRoPSIyMCIgaGVpZ2h0PSI0IiByeD0iMSIgZmlsbD0iI2MwNDAwOCIgb3BhY2l0eT0iMC44Ii8+PC9zdmc+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:     #080502;
+    --warm-dark: #100804;
+    --amber:     #d05a08;
+    --amber-lit: #e8900a;
+    --paper:     #f0e0cc;
+    --muted:     #907060;
+    --hairline:  rgba(240,210,170,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--paper); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 32px;
+    font-size: 0.8rem; letter-spacing: 0.04em;
+    mix-blend-mode: difference;
+  }
+  .nav-logo {
+    font-family: 'Pacifico', cursive; font-size: 1.9rem; letter-spacing: 0;
+    cursor: pointer;
+    transition: font-size 0.3s ease;
+  }
+  .nav-links { display: flex; align-items: center; gap: 24px; }
+  .nav-links a { opacity: 0.75; transition: opacity .2s; display: flex; align-items: center; }
+  .nav-links a:hover { opacity: 1; }
+
+  /* hero */
+  .hero {
+    position: relative; height: 100svh; min-height: 540px;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center 30%;
+    filter: contrast(1.08) brightness(0.88) saturate(1.1);
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom,
+      rgba(8,5,2,0.22) 0%,
+      rgba(8,5,2,0.06) 35%,
+      rgba(8,5,2,0.55) 70%,
+      rgba(8,5,2,0.93) 100%);
+  }
+
+  .scroll-cue {
+    position: absolute; bottom: 26px; left: 50%;
+    transform: translateX(-50%); z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    font-size: 0.66rem; letter-spacing: 0.1em; color: var(--muted);
+    animation: cue 2.4s ease-in-out infinite;
+  }
+  .scroll-cue::after {
+    content: ""; display: block;
+    width: 1px; height: 24px;
+    background: linear-gradient(to bottom, var(--muted), transparent);
+  }
+  @keyframes cue {
+    0%,100% { opacity:.4; transform:translateX(-50%) translateY(0); }
+    50%      { opacity:.85;transform:translateX(-50%) translateY(6px); }
+  }
+
+  /* about / contact - redesigned */
+  /* about / contact - side-by-side */
+  .contact-section {
+    display: grid; grid-template-columns: 1fr 1.1fr;
+    min-height: 90svh;
+    background: var(--black);
+  }
+  /* emerging-from-darkness photo */
+  .contact-photo {
+    position: relative;
+    background: var(--warm-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* image at natural width - all 4 people visible */
+  .contact-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    mix-blend-mode: screen;
+    opacity: 1;
+    position: relative;
+    z-index: 0;
+  }
+  /* subtle left edge fade into page bg */
+  .contact-photo::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, var(--warm-dark) 0%, transparent 12%),
+      linear-gradient(to left,  var(--warm-dark) 0%, transparent 8%),
+      linear-gradient(to top,   var(--warm-dark) 0%, transparent 18%),
+      linear-gradient(to bottom, transparent 70%, var(--warm-dark) 100%);
+    z-index: 1; pointer-events: none;
+  }
+  .contact-body {
+    background: var(--warm-dark);
+    padding: 80px 52px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .contact-label {
+    font-size: 0.68rem; color: var(--muted);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 26px;
+  }
+  .contact-name {
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    line-height: 1.1; margin-bottom: 24px; color: var(--paper);
+  }
+  .bio-text p {
+    font-size: 0.96rem; line-height: 1.72;
+    color: #c0b098; margin-bottom: 15px;
+  }
+  .bio-text p:last-child { margin-bottom: 0; }
+  .bio-tagline {
+    margin-top: 22px; color: var(--amber-lit);
+    font-size: 0.85rem; font-weight: 600; font-style: italic;
+  }
+  .contact-links {
+    margin-top: 36px;
+    border-top: 1px solid var(--hairline);
+  }
+  .contact-links a {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 0; border-bottom: 1px solid var(--hairline);
+    font-size: 0.95rem; transition: color .2s;
+  }
+  .contact-links a:hover { color: var(--amber-lit); }
+  .link-icon { display: flex; align-items: center; gap: 9px; }
+  .arrow { color: var(--muted); font-size: 0.78rem; transition: transform .2s, color .2s; }
+  .contact-links a:hover .arrow { transform: translateX(4px); color: var(--amber-lit); }
+
+  /* impressions strip */
+  .impressions-wrap { border-top: 1px solid var(--hairline); }
+  .impressions-header {
+    padding: 20px 32px 16px;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .impressions-label {
+    font-size: 0.7rem; letter-spacing: 0.08em;
+    color: var(--muted); text-transform: uppercase;
+  }
+  .impressions-link {
+    font-size: 0.8rem; color: var(--amber-lit);
+    display: flex; align-items: center; gap: 5px; transition: gap .2s;
+  }
+  .impressions-link:hover { gap: 9px; }
+  .impressions-strip {
+    display: flex; align-items: stretch; height: 200px; overflow: hidden;
+    border-top: 1px solid var(--hairline);
+  }
+  .impressions-strip img {
+    flex: 1; min-width: 0; height: 100%;
+    object-fit: cover;
+    filter: saturate(0.6) brightness(0.7);
+    transition: filter .4s, flex .45s ease;
+  }
+  .impressions-strip img:hover {
+    flex: 2.8; filter: saturate(1) brightness(0.95);
+  }
+
+
+  /* footer */
+  .site-footer {
+    padding: 26px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--hairline);
+    font-size: 0.74rem; color: var(--muted);
+  }
+
+  /* responsive */
+  @media (max-width: 780px) {
+    .contact-section { grid-template-columns: 1fr; }
+    .contact-photo { min-height: unset; }
+    .contact-body { padding: 48px 24px; }
+    nav { padding: 18px 20px; }
+    .impressions-strip { height: 140px; }
+  }
+  @media (max-width: 560px) {
+    .nav-links { gap: 14px; }
+    .nav-links a[aria-label] svg { width: 14px; height: 14px; }
+    .impressions-strip { height: 110px; }
+    .impressions-header { padding: 18px 14px; flex-direction: column; gap: 8px; align-items: flex-start; }
+    .live-section { padding: 48px 14px 40px; }
+    .live-row { grid-template-columns: 80px 1fr; gap: 8px; }
+
+    .contact-body { padding: 36px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#top" class="nav-logo">Wired Strangers.</a>
+  <div class="nav-links">
+    <a href="impressions.html">Impressions</a>
+    <a href="#contact">Contact</a>
+    <a href="https://www.instagram.com/wired.strangers/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="0.9" fill="currentColor" stroke="none"/></svg></a>
+  </div>
+</nav>
+
+<header id="top" class="hero">
+  <img class="hero-bg" src="images/hero.jpg" alt="Wired Strangers">
+
+  <div class="scroll-cue">Scroll</div>
+</header><section id="contact" class="contact-section">
+  <div class="contact-photo">
+    <img src="images/band-photo.jpg" alt="Wired Strangers">
+  </div>
+  <div class="contact-body">
+    <p class="contact-label">About the band</p>
+    <h2 class="contact-name">Wired Strangers.</h2>
+    <div class="bio-text">
+      <p>Wired Strangers write songs about the things that keep you up at night.</p>
+      <p>Since 2015, four strangers making music the hard way: recording in Poznań in a mosquito-filled garden cottage, cycling 1000km to Montpellier on cargo bikes, playing shows on solar power, raising money for four charities along the way. Never quite the classical rock band script.</p>
+      <p>In May 2026, they walked into Number Nine Studios with producer Ian Clément and came out with an EP called Little Traveller. The sound is big. The questions are bigger.</p>
+      <p>They've opened for De Mens, played Les Estivales in Montpellier, and a handful of stages across Belgium, France and Poland.</p>
+      
+    </div>
+    <div class="contact-links">
+      <a href="mailto:hello@wiredstrangers.be">
+        <span class="link-icon">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          hello@wiredstrangers.be
+        </span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="https://www.instagram.com/wired.strangers/" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="0.9" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="impressions-wrap">
+  <div class="impressions-header">
+    <span class="impressions-label">From the sessions &amp; the road</span>
+    <a class="impressions-link" href="impressions.html">See all photos →</a>
+  </div>
+  <div class="impressions-strip">
+    <img src="images/strip-1.jpg" alt="">
+    <img src="images/strip-2.jpg" alt="">
+    <img src="images/strip-3.jpg" alt="">
+    <img src="images/strip-4.jpg" alt="">
+    <img src="images/strip-5.jpg" alt="">
+    <img src="images/strip-6.jpg" alt="">
+    <img src="images/strip-7.jpg" alt="">
+  </div>
+</div>
+
+<footer class="site-footer">
+  <span>Wired Strangers, Gent - <a href="https://8circus.be" style="opacity:0.55; text-decoration:none; border-bottom: 1px solid rgba(240,224,204,0.2);">8circus records</a></span>
+  <span>&copy; 2026</span>
+</footer>
+
+<script>
+  // Nav logo starts larger when at top of page, shrinks on scroll
+  (function() {
+    var logo = document.querySelector('.nav-logo');
+    if (!logo) return;
+    function updateLogo() {
+      var y = window.scrollY;
+      // At top (y=0): larger. After 80px: normal size.
+      var progress = Math.min(y / 80, 1);
+      var size = 1.9 - (progress * 0.85); // 1.9rem → 1.05rem
+      logo.style.fontSize = size + 'rem';
+    }
+    updateLogo();
+    window.addEventListener('scroll', updateLogo, { passive: true });
+  })();
+</script>
+</body>
+</html>
